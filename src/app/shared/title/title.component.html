@@ -1,0 +1,9 @@
+<h1
+  [ngClass]="{
+    'text-5xl text-gray-800 font-black leading-none tracking-tighter': type === 'super',
+    'text-3xl text-gray-800 font-medium leading-none tracking-tight': type === 'header',
+    'text-xl text-gray-600 leading-none': type === 'subheader'
+  }"
+>
+  <ng-content></ng-content>
+</h1>

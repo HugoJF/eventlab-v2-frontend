@@ -1,0 +1,51 @@
+<form class="space-y-8 w-full max-w-[32rem]" (submit)="handleSubmit()">
+  <app-title type="super" class="mb-10">
+    Criando novo evento
+  </app-title>
+
+  <div>
+    <app-input
+      name="title"
+      label="Título do evento"
+      type="text"
+      [control]="title"
+    ></app-input>
+  </div>
+
+  <div>
+    <app-textarea
+      name="description"
+      label="Descrição do evento"
+      [control]="description"
+    ></app-textarea>
+  </div>
+
+  <div class="grid grid-cols-2 gap-8">
+    <app-input
+      name="starts_at"
+      label="Início do evento"
+      type="datetime-local"
+      [control]="starts_at"
+    ></app-input>
+
+    <app-input
+      name="ends_at"
+      label="Fim do evento"
+      type="datetime-local"
+      [control]="ends_at"
+    ></app-input>
+  </div>
+
+  <div class="pt-4">
+    <app-button class="w-full" [loading]="loading">
+      Criar
+    </app-button>
+  </div>
+
+  <div class="mt-8 px-4 text-center">
+    <a [routerLink]="'/events/login'" class="w-full text-gray-500">
+      <span>Já possui uma conta?</span>
+      <span class="ml-1 text-blue-500 hover:underline">Clique aqui</span>
+    </a>
+  </div>
+</form>

@@ -1,0 +1,22 @@
+<button
+  [disabled]="!enabled"
+  [class]="class"
+  [ngClass]="{
+    'transition-all duration-150 text-white text-center border-box hover:shadow': true,
+    'cursor-not-allowed opacity-50': !enabled,
+    'py-1 px-2 text-base rounded': size === 'small',
+    'py-3 px-4 text-xl font-medium rounded-lg': size === 'normal',
+    'bg-gray-500 hover:bg-gray-600': color === 'default',
+    'bg-blue-500 hover:bg-blue-600': color === 'primary',
+    'bg-secondary-500 hover:bg-secondary-600': color === 'secondary',
+    'bg-red-500 hover:bg-red-600': color === 'danger'
+  }"
+>
+  <i-feather
+    style="width: 30px; height: 30px"
+    class="animate-spin mx-auto block"
+    *ngIf="loading"
+    name="loader"
+  ></i-feather>
+  <ng-content></ng-content>
+</button>

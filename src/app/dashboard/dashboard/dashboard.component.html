@@ -1,0 +1,9 @@
+<app-container>
+  <app-title>TokenLab</app-title>
+  <app-event-list
+    (onJoin)="handleOnJoin($event)"
+    (onLeave)="handleOnLeave($event)"
+    (onEdit)="handleOnEdit($event)"
+    (onDelete)="handleOnDelete($event)"
+  ></app-event-list>
+</app-container>

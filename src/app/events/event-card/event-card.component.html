@@ -1,0 +1,79 @@
+<div
+  class="group duration-200 flex px-5 py-5 text-black bg-white border border-gray-200 hover:border-blue-300 rounded-lg hover:shadow-md"
+>
+  <!-- Left panel -->
+  <div class="flex flex-col pr-4 md:justify-center items-center border-r">
+    <!-- Day of week -->
+    <div class="text-gray-500 tracking-tight">
+      {{startsAt | date:'E'}}
+    </div>
+
+    <!-- Day of month -->
+    <div class="text-4xl font-bold">
+      {{startsAt | date:'dd'}}
+    </div>
+  </div>
+
+  <!--  {/* Right panel */}-->
+  <div class="px-4 flex flex-col flex-grow">
+    <div class="w-full flex justify-between">
+      <h2 class="text-lg font-medium">
+        {{event.title}}
+      </h2>
+
+      <div *ngIf="controls" class="duration-150 group-hover:opacity-100 opacity-0 flex text-gray-400">
+        <div (click)="handleOnEdit()" class="p-2 duration-200 hover:text-gray-500 cursor-pointer">
+          <i-feather name="edit"></i-feather>
+
+        </div>
+        <div (click)="handleOnDelete()" class="p-2 duration-200 hover:text-gray-500 cursor-pointer">
+          <i-feather name="trash"></i-feather>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col flex-wrap items-start md:flex-row">
+      <app-badge title="Criado por" icon="user">
+        {{event.user.name}}
+      </app-badge>
+      <app-badge title="Início do evento" icon="calendar">
+        {{startsAt | date}}
+      </app-badge>
+      <app-badge title="Duração" icon="clock">
+        <!-- TODO -->
+        2 dias
+      </app-badge>
+    </div>
+
+    <!-- Users -->
+    <div class="flex mt-2 space-x-1">
+      <app-head [user]="user" *ngFor="let user of event.users"></app-head>
+    </div>
+
+    <p class="mt-3 text-gray-700 leading-5">
+      {{event.description}}
+    </p>
+
+    <!-- Join event button -->
+    <div
+      *ngIf="controls && !userInEvent()"
+      (click)="handleOnJoin()"
+      class="duration-100 group-hover:opacity-100 opacity-0 w-full mt-4 flex flex-col flex-grow justify-end"
+    >
+      <app-button class="w-full" size="small">
+        Participar
+      </app-button>
+    </div>
+
+    <!-- Leave event button -->
+    <div
+      *ngIf="controls && userInEvent()"
+      (click)="handleOnLeave()"
+      class="duration-100 w-full mt-2 flex flex-col flex-grow justify-end"
+    >
+      <app-button class="w-full" color="danger" size="small">
+        Cancelar
+      </app-button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div
+  [title]="user.name"
+  [ngClass]="{
+    'duration-150 w-6 h-6 flex items-center justify-center': true,
+    'text-xs text-white font-normal rounded-full uppercase shadow-sm': true,
+    'bg-gray-500': color === 'gray',
+    'bg-red-500': color === 'red',
+    'bg-yellow-500': color === 'yellow',
+    'bg-green-500': color === 'green',
+    'bg-blue-500': color === 'blue',
+    'bg-indigo-500': color === 'indigo',
+    'bg-purple-500': color === 'purple',
+    'bg-pink-500': color === 'pink'
+  }"
+>
+  {{initials}}
+</div>
