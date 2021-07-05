@@ -1,9 +1,9 @@
 import {Component, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {EventType} from "../../core/types/types";
 import {Subject} from "rxjs";
-import {BackendService} from "../../shared/backend.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {take, takeUntil} from "rxjs/operators";
+import {EventsService} from "../../shared/events.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 
   notifier = new Subject();
 
-  constructor(private backend: BackendService, private activated: ActivatedRoute, private router: Router) {
+  constructor(private backend: EventsService, private activated: ActivatedRoute, private router: Router) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -46,7 +46,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   handleOnDelete(event: EventType) {
-
+    this.backend.delete(event)
   }
 
   handleOnLeave(event: EventType) {
@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 
   getEvents() {
     this.backend
-        .events(this.page)
+        .index(this.page)
         .subscribe(response => this.events = response.data)
   }
 }

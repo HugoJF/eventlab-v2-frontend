@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {EventType, PaginatedResourceResponse, ResourceResponse} from "../core/types/types";
+import {EventType, PaginatedResourceResponse} from "../core/types/types";
 
 @Injectable({
   providedIn: 'root'
@@ -17,30 +17,23 @@ export class BackendService {
   }
 
   url(path: string) {
-    return `http://tokenlab.test/api${path}`;
+    return `http://tokenlab.test/api/v2${path}`;
   }
 
   get<T>(path: string) {
     return this.http.get<T>(this.url(path), this.defaultOptions);
   }
 
-  post<T>(path: string) {
-    return this.http.post<T>(this.url(path), {}, this.defaultOptions);
+  post<T>(path: string, body: any = {}) {
+    return this.http.post<T>(this.url(path), body, this.defaultOptions);
+  }
+
+  patch<T>(path: string, body: any = {}) {
+    return this.http.patch<T>(this.url(path), body, this.defaultOptions);
   }
 
   delete<T>(path: string) {
     return this.http.delete<T>(this.url(path), this.defaultOptions);
   }
 
-  events(page: number = 1) {
-    return this.get<PaginatedResourceResponse<EventType[]>>('/events?page=' + page)
-  }
-
-  join(event: EventType) {
-    return this.post<ResourceResponse<EventType>>(`/events/${event.id}/join`);
-  }
-
-  leave(event: EventType) {
-    return this.delete<ResourceResponse<EventType>>(`/events/${event.id}/leave`);
-  }
 }

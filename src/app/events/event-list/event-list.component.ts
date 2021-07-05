@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {EventType} from "../../core/types/types";
 
 @Component({
@@ -6,12 +6,12 @@ import {EventType} from "../../core/types/types";
   templateUrl: './event-list.component.html'
 })
 export class EventListComponent {
+  @Input() events: EventType[] = [];
+
   @Output() onEdit = new EventEmitter<EventType>();
   @Output() onDelete = new EventEmitter<EventType>();
   @Output() onJoin = new EventEmitter<EventType>();
   @Output() onLeave = new EventEmitter<EventType>();
-
-  events: EventType[] = [];
 
   constructor() {
   }
