@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
+import {AuthService} from "../../shared/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -19,13 +20,14 @@ export class LoginComponent implements OnInit {
     Validators.minLength(8),
   ]);
 
-  constructor(private router: Router) {
+  constructor(private auth: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
   }
 
   handleSubmit() {
+    this.auth.login();
     this.router.navigateByUrl('/dashboard');
   }
 }

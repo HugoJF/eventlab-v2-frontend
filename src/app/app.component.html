@@ -1,21 +1,4 @@
-<header *ngIf="auth.getUser()" class="flex justify-between px-8 py-6 mb-4 text-white bg-gray-900 shadow-lg">
-  <!-- Go back -->
-  <div class="px-3 cursor-pointer">
-    <i-feather name="chevron-left"></i-feather>
-  </div>
-
-  <!-- Authed user -->
-  <div class="flex items-center space-x-1">
-    <i-feather name="user"></i-feather>
-    <span>{{auth.getUser()!.name}}</span>
-  </div>
-
-  <!-- Logout -->
-  <div class="px-3 cursor-pointer">
-    <i-feather name="log-out"></i-feather>
-  </div>
-</header>
-
+<app-header></app-header>
 
 <main class="flex-grow flex flex-col px-4 pb-8 container mx-auto flex flex-col justify-center items-center">
   <router-outlet></router-outlet>

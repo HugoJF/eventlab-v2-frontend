@@ -16,6 +16,7 @@ import {ModalConfirmComponent} from './modal/modal-confirm.component';
 import {ModalContainerComponent} from './modal-container/modal-container.component';
 import {PortalModule} from "@angular/cdk/portal";
 import {ModalDirective} from './modal.directive';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {ModalDirective} from './modal.directive';
     ModalConfirmComponent,
     ModalContainerComponent,
     ModalDirective,
+    HeaderComponent,
   ],
   exports: [
     BadgeComponent,
@@ -45,6 +47,7 @@ import {ModalDirective} from './modal.directive';
     ModalContainerComponent,
     ModalConfirmComponent,
     ModalDirective,
+    HeaderComponent,
   ],
   imports: [
     CommonModule,
