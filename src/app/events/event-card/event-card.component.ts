@@ -4,7 +4,8 @@ import {EventType} from "../../core/types/types";
 
 @Component({
   selector: 'app-event[event]',
-  templateUrl: './event-card.component.html'
+  templateUrl: './event-card.component.html',
+  host: {class: 'contents'},
 })
 export class EventCardComponent implements OnInit, OnChanges {
   @Input() event!: EventType;
