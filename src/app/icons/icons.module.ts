@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 
 import {FeatherModule} from 'angular-feather';
-import {Calendar, ChevronLeft, Clock, Edit, Loader, LogOut, Star, Trash, User} from 'angular-feather/icons';
+import {Calendar, ChevronLeft, Clock, Edit, Loader, LogOut, Star, Trash, User, X} from 'angular-feather/icons';
 
 // Select some icons (use an object, not an array)
 const icons = {
@@ -14,6 +14,7 @@ const icons = {
   Star,
   ChevronLeft,
   LogOut,
+  X
 };
 
 @NgModule({

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {EventType} from "../../core/types/types";
 import {Subject} from "rxjs";
 import {Router} from "@angular/router";
@@ -15,7 +15,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   notifier = new Subject();
 
-  constructor(private backend: EventsService, private router: Router, private paginator: PaginatorService) {
+  @ViewChild('modal') modal!: TemplateRef<unknown>;
+
+  constructor(
+    private backend: EventsService,
+    private router: Router,
+    private paginator: PaginatorService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -28,7 +34,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.getEvents();
       });
   }
-
 
   ngOnDestroy(): void {
     this.notifier.next();
@@ -51,6 +56,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe(() => this.getEvents());
   }
 
+
   handleOnLeave(event: EventType) {
     this
       .backend
@@ -58,7 +64,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe(() => this.getEvents());
   }
-
 
   handleOnJoin(event: EventType) {
     this

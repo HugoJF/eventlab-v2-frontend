@@ -12,6 +12,10 @@ import {TitleComponent} from "./title/title.component";
 import {IconsModule} from "../icons/icons.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { ModalComponent } from './modal/modal.component';
+import { ModalContainerComponent } from './modal-container/modal-container.component';
+import {PortalModule} from "@angular/cdk/portal";
+import { ModalDirective } from './modal.directive';
 
 @NgModule({
   declarations: [
@@ -24,6 +28,9 @@ import {HttpClientModule} from "@angular/common/http";
     PaginationComponent,
     TextareaComponent,
     TitleComponent,
+    ModalComponent,
+    ModalContainerComponent,
+    ModalDirective,
   ],
   exports: [
     BadgeComponent,
@@ -35,12 +42,16 @@ import {HttpClientModule} from "@angular/common/http";
     PaginationComponent,
     TextareaComponent,
     TitleComponent,
+    ModalContainerComponent,
+    ModalComponent,
+    ModalDirective,
   ],
   imports: [
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
-    IconsModule
+    IconsModule,
+    PortalModule
   ]
 })
 export class SharedModule {

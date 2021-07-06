@@ -1,7 +1,7 @@
 <header *ngIf="auth.getUser()" class="flex justify-between px-8 py-6 mb-4 text-white bg-gray-900 shadow-lg">
   <!-- Go back -->
   <div class="px-3 cursor-pointer">
-      <i-feather name="chevron-left"></i-feather>
+    <i-feather name="chevron-left"></i-feather>
   </div>
 
   <!-- Authed user -->
@@ -12,7 +12,7 @@
 
   <!-- Logout -->
   <div class="px-3 cursor-pointer">
-  <i-feather name="log-out"></i-feather>
+    <i-feather name="log-out"></i-feather>
   </div>
 </header>
 
@@ -20,3 +20,5 @@
 <main class="flex-grow flex flex-col px-4 pb-8 container mx-auto flex flex-col justify-center items-center">
   <router-outlet></router-outlet>
 </main>
+
+<app-modal-container></app-modal-container>

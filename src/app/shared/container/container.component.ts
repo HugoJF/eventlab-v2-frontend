@@ -5,8 +5,6 @@ import {Component} from '@angular/core';
   templateUrl: './container.component.html'
 })
 export class ContainerComponent {
-
   constructor() {
   }
-
 }

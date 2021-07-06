@@ -1,0 +1,25 @@
+<div class="border rounded shadow">
+  <!-- Body -->
+  <div class="px-5 py-3 bg-gray-100 rounded-t">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-4">
+      <app-title type="header">{{title}}</app-title>
+      <i-feather
+        (click)="dismiss()"
+        class="duration-150 !h-6 !w-6 p-1 hover:bg-gray-200 rounded-full cursor-pointer"
+        name="x"
+      ></i-feather>
+    </div>
+
+    <!-- Description -->
+    <p class="text-gray-700">
+      <ng-content></ng-content>
+    </p>
+  </div>
+
+  <!-- Actions -->
+  <div class="flex px-5 py-3 justify-end space-x-2 bg-gray-200 rounded-b">
+    <app-button color="default" size="small" (click)="dismiss()">Cancel</app-button>
+    <app-button color="danger" size="small">{{action}}</app-button>
+  </div>
+</div>

@@ -7,6 +7,7 @@ import {EventsModule} from './events/events.module';
 import {AuthModule} from './auth/auth.module';
 import {DashboardModule} from './dashboard/dashboard.module';
 import {IconsModule} from "./icons/icons.module";
+import {SharedModule} from "./shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {IconsModule} from "./icons/icons.module";
     AuthModule,
     DashboardModule,
     IconsModule,
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
