@@ -1,13 +1,13 @@
 <div class="flex border rounded-lg">
   <div
-    *ngFor="let page of pages()"
-    (click)="goTo(page)"
+    *ngFor="let p of pages()"
+    (click)="onPagination(p)"
     [ngClass]="{
-        'bg-gray-800 text-white': page === current,
-        'duration-150 hover:bg-gray-200 cursor-pointer': page !== current
+        'bg-gray-800 text-white': p === page,
+        'duration-150 hover:bg-gray-200 cursor-pointer': p !== page
       }"
     class="px-6 py-4 bg-white first:rounded-l-lg last:rounded-r-lg select-none"
   >
-    {{page}}
+    {{p}}
   </div>
 </div>

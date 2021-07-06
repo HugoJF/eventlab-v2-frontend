@@ -21,7 +21,7 @@ export class EventsService {
     return this.api.delete<ResourceResponse<EventType>>(`/events/${event.id}/leave`);
   }
 
-  edit(event: EventType) {
+  update(event: EventType) {
     return this.api.patch<ResourceResponse<EventType>>(`/events/${event.id}`, event);
   }
 
