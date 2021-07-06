@@ -13,6 +13,8 @@ import {PaginatorService} from "../../shared/paginator.service";
 export class DashboardComponent implements OnInit, OnDestroy {
   events: EventType[] = [];
 
+  eventToBeLeft?: EventType;
+
   notifier = new Subject();
 
   @ViewChild('modal') modal!: TemplateRef<unknown>;
@@ -56,8 +58,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe(() => this.getEvents());
   }
 
-
   handleOnLeave(event: EventType) {
+    this.eventToBeLeft = event;
+
+  }
+  onLeave(event?: EventType) {
+    this.eventToBeLeft = undefined;
+
+    if (!event) {
+      return;
+    }
+
     this
       .backend
       .leave(event)

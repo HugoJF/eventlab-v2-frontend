@@ -8,7 +8,12 @@
     (onDelete)="handleOnDelete($event)"
   ></app-event-list>
 
-  <app-modal *appModal="true" action="pog" title="pog">
-    Pog
-  </app-modal>
+  <app-modal-confirm
+    *appModal="this.eventToBeLeft"
+    (onConfirmation)="this.onLeave(this.eventToBeLeft)"
+    action="Leave"
+    title="Leaving event"
+  >
+    Are you sure you want to leave event <span class="font-medium">{{this.eventToBeLeft?.title}}</span>
+  </app-modal-confirm>
 </app-container>

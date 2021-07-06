@@ -12,10 +12,10 @@ import {TitleComponent} from "./title/title.component";
 import {IconsModule} from "../icons/icons.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
-import { ModalComponent } from './modal/modal.component';
-import { ModalContainerComponent } from './modal-container/modal-container.component';
+import {ModalConfirmComponent} from './modal/modal-confirm.component';
+import {ModalContainerComponent} from './modal-container/modal-container.component';
 import {PortalModule} from "@angular/cdk/portal";
-import { ModalDirective } from './modal.directive';
+import {ModalDirective} from './modal.directive';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import { ModalDirective } from './modal.directive';
     PaginationComponent,
     TextareaComponent,
     TitleComponent,
-    ModalComponent,
+    ModalConfirmComponent,
     ModalContainerComponent,
     ModalDirective,
   ],
@@ -43,7 +43,7 @@ import { ModalDirective } from './modal.directive';
     TextareaComponent,
     TitleComponent,
     ModalContainerComponent,
-    ModalComponent,
+    ModalConfirmComponent,
     ModalDirective,
   ],
   imports: [
