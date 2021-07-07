@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {UserType} from "../core/types/types";
 import {Router} from "@angular/router";
+import {Subject} from "rxjs";
 
 const USER = {
   id: 1,
@@ -17,18 +18,31 @@ const USER = {
   providedIn: 'root'
 })
 export class AuthService {
-  user?: UserType = USER;
+  user: UserType | null = null;
+
+  readonly onAuth = new Subject<UserType | null>();
 
   constructor(private router: Router) {
+    const data = localStorage.getItem('user');
+    if (data) {
+      this.user = JSON.parse(data) as UserType;
+    }
   }
 
+
   login() {
-    this.user = USER;
+    this.setUser(USER);
   }
 
   logout() {
-    this.user = undefined;
+    this.setUser(null);
     this.router.navigateByUrl('/login');
+  }
+
+  setUser(user: UserType | null) {
+    localStorage.setItem('user', JSON.stringify(user));
+    this.user = user;
+    this.onAuth.next(user);
   }
 
   getUser() {
