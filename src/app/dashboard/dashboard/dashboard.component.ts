@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   events: EventType[] = [];
 
   eventToLeave?: EventType;
+  eventToDelete?: EventType;
 
   notifier = new Subject();
 
@@ -51,6 +52,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   handleOnDelete(event: EventType) {
+    this.eventToDelete = event;
+  }
+
+  onDelete(event?: EventType) {
+    this.eventToDelete = undefined;
+
+    if (!event) {
+      return;
+    }
+
     this
       .backend
       .delete(event)
@@ -62,6 +73,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.eventToLeave = event;
 
   }
+
   onLeave(event?: EventType) {
     this.eventToLeave = undefined;
 

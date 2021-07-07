@@ -16,4 +16,13 @@
   >
     Are you sure you want to leave event <span class="font-medium">{{this.eventToLeave?.title}}</span>
   </app-modal-confirm>
+
+  <app-modal-confirm
+    *appModal="this.eventToDelete"
+    (onConfirmation)="this.onDelete(this.eventToDelete)"
+    action="Delete"
+    title="Deleting event"
+  >
+    Are you sure you want to delete event <span class="font-medium">{{this.eventToDelete?.title}}</span>
+  </app-modal-confirm>
 </app-container>
