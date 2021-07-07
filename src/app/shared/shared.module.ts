@@ -17,6 +17,7 @@ import {ModalContainerComponent} from './modal-container/modal-container.compone
 import {PortalModule} from "@angular/cdk/portal";
 import {ModalDirective} from './modal.directive';
 import { HeaderComponent } from './header/header.component';
+import {ClassSwitchDirective} from "./class-switch.directive";
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { HeaderComponent } from './header/header.component';
     ModalContainerComponent,
     ModalDirective,
     HeaderComponent,
+    ClassSwitchDirective,
   ],
   exports: [
     BadgeComponent,
@@ -48,6 +50,7 @@ import { HeaderComponent } from './header/header.component';
     ModalConfirmComponent,
     ModalDirective,
     HeaderComponent,
+    ClassSwitchDirective,
   ],
   imports: [
     CommonModule,

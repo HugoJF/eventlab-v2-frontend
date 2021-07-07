@@ -13,7 +13,7 @@ import {PaginatorService} from "../../shared/paginator.service";
 export class DashboardComponent implements OnInit, OnDestroy {
   events: EventType[] = [];
 
-  eventToBeLeft?: EventType;
+  eventToLeave?: EventType;
 
   notifier = new Subject();
 
@@ -59,11 +59,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   handleOnLeave(event: EventType) {
-    this.eventToBeLeft = event;
+    this.eventToLeave = event;
 
   }
   onLeave(event?: EventType) {
-    this.eventToBeLeft = undefined;
+    this.eventToLeave = undefined;
 
     if (!event) {
       return;

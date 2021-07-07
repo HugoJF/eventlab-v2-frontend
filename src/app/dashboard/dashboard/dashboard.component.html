@@ -9,11 +9,11 @@
   ></app-event-list>
 
   <app-modal-confirm
-    *appModal="this.eventToBeLeft"
-    (onConfirmation)="this.onLeave(this.eventToBeLeft)"
+    *appModal="this.eventToLeave"
+    (onConfirmation)="this.onLeave(this.eventToLeave)"
     action="Leave"
     title="Leaving event"
   >
-    Are you sure you want to leave event <span class="font-medium">{{this.eventToBeLeft?.title}}</span>
+    Are you sure you want to leave event <span class="font-medium">{{this.eventToLeave?.title}}</span>
   </app-modal-confirm>
 </app-container>

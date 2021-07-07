@@ -2,14 +2,21 @@
   [disabled]="!enabled"
   [class]="class"
   [ngClass]="{
-    'transition-all duration-150 text-white text-center border-box': true,
-    'cursor-not-allowed opacity-50': !enabled,
-    'py-1 px-2 text-sm rounded': size === 'small',
-    'py-3 px-4 text-lg font-medium rounded-lg': size === 'normal',
-    'bg-gray-100 border border-gray-300 text-gray-700 hover:bg-gray-200': color === 'default',
-    'bg-blue-500 hover:bg-blue-600': color === 'primary',
-    'bg-secondary-500 hover:bg-secondary-600': color === 'secondary',
-    'bg-red-500 hover:bg-red-600': color === 'danger'
+    'transition-all duration-150 text-center border-box': true,
+    'cursor-not-allowed opacity-50': !enabled
+  }"
+  [appClassSwitch]="{color: color, size: size}"
+  [appClassCases]="{
+    size: {
+      'small': 'py-1 px-2 text-sm rounded',
+      'normal': 'py-3 px-4 text-lg font-medium rounded-lg'
+    },
+    color: {
+      'default': 'text-gray-700 bg-gray-100 border border-gray-300 hover:bg-gray-200',
+      'primary': 'text-white bg-blue-500 hover:bg-blue-600',
+      'secondary': 'text-white bg-secondary-500 hover:bg-secondary-600',
+      'danger': 'text-white bg-red-500 hover:bg-red-600'
+    }
   }"
 >
   <i-feather
