@@ -6,18 +6,18 @@ import {SharedModule} from "../shared/shared.module";
 import {IconsModule} from "../icons/icons.module";
 import {EventListComponent} from "./event-list/event-list.component";
 import {EventCardComponent} from "./event-card/event-card.component";
-import {CreateEventComponent} from "./create-event/create-event.component";
+import {EventFormComponent} from "./event-form/event-form.component";
 
 @NgModule({
   declarations: [
     EventListComponent,
     EventCardComponent,
-    CreateEventComponent,
+    EventFormComponent,
   ],
   exports: [
     EventListComponent,
     EventCardComponent,
-    CreateEventComponent,
+    EventFormComponent,
   ],
   imports: [
     CommonModule,

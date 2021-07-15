@@ -1,4 +1,8 @@
-<form class="space-y-8 w-full max-w-[32rem]" (submit)="handleSubmit()">
+<form
+  class="space-y-8 w-full max-w-[32rem]"
+  [formGroup]="formGroup"
+  (ngSubmit)="handleSubmit()"
+>
   <app-title type="super" class="mb-10">
     EventLab
   </app-title>

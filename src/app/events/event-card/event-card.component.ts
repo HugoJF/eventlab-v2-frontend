@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {AuthService} from "../../shared/auth.service";
+import {AuthService} from "../../core/auth.service";
 import {EventType} from "../../core/types/types";
 
 @Component({
@@ -47,7 +47,7 @@ export class EventCardComponent implements OnInit, OnChanges {
   }
 
   userInEvent() {
-    return this.event.users.some(user => user.id === this.auth.getUser()!.id);
+    return this.event.participants.some(user => user.id === this.auth.getUser()!.id);
   }
 
   parseDates() {

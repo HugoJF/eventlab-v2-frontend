@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {AuthService} from "../../shared/auth.service";
+import {AuthService} from "../../core/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -15,10 +15,16 @@ export class LoginComponent implements OnInit {
     Validators.required,
     Validators.minLength(8),
   ]);
+
   password = new FormControl('', [
     Validators.required,
     Validators.minLength(8),
   ]);
+
+  formGroup = new FormGroup({
+    email: this.email,
+    password: this.password,
+  });
 
   constructor(private auth: AuthService, private router: Router) {
   }
@@ -27,7 +33,11 @@ export class LoginComponent implements OnInit {
   }
 
   handleSubmit() {
-    this.auth.login();
+    this.auth.login({
+      username: this.email.value,
+      password: this.password.value,
+    });
     this.router.navigateByUrl('/dashboard');
   }
+
 }

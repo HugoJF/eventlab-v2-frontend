@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
 
 @Component({
-  selector: 'app-create-event',
-  templateUrl: './create-event.component.html',
+  selector: 'app-event-form',
+  templateUrl: './event-form.component.html',
   host: {class: 'contents'}
 })
-export class CreateEventComponent implements OnInit {
+export class EventFormComponent implements OnInit {
 
   loading = false;
 
