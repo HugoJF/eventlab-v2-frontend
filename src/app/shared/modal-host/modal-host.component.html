@@ -1,0 +1,8 @@
+<div
+  *ngFor="let portal of portals"
+  (click)="dismiss($event)"
+  class="absolute flex items-center justify-center inset-0 bg-black bg-opacity-50"
+  #container
+>
+  <ng-template [ngIf]="portal.info.visible" [cdkPortalOutlet]="portal.ref"></ng-template>
+</div>

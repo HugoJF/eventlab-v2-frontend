@@ -10,11 +10,9 @@ export class ModalConfirmComponent {
   @Input() action: string = '';
 
   @Output() onConfirmation = new EventEmitter();
-
-  constructor(private modal: ModalService) {
-  }
+  @Output() onDismiss = new EventEmitter();
 
   dismiss() {
-    this.modal.clearRef();
+    this.onDismiss.emit();
   }
 }

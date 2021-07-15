@@ -1,5 +1,5 @@
 <app-container>
-  <app-title>TokenLab</app-title>
+  <app-title (click)="this.creatingEvent = !this.creatingEvent">TokenLab</app-title>
   <app-event-list
     [events]="events"
     (onJoin)="handleOnJoin($event)"
@@ -8,9 +8,18 @@
     (onDelete)="handleOnDelete($event)"
   ></app-event-list>
 
+  <app-modal-container *appModal="CREATING_EVENT">
+    <div class="p-8 bg-white rounded">
+      <app-event-form>
+
+      </app-event-form>
+    </div>
+  </app-modal-container>
+
   <app-modal-confirm
-    *appModal="this.eventToLeave"
+    *appModal="LEAVING_EVENT"
     (onConfirmation)="this.onLeave(this.eventToLeave)"
+    (onDismiss)="this.modalService.setVisible(LEAVING_EVENT, false)"
     action="Leave"
     title="Leaving event"
   >
@@ -18,8 +27,9 @@
   </app-modal-confirm>
 
   <app-modal-confirm
-    *appModal="this.eventToDelete"
+    *appModal="DELETING_EVENT"
     (onConfirmation)="this.onDelete(this.eventToDelete)"
+    (onDismiss)="this.eventToDelete = undefined"
     action="Delete"
     title="Deleting event"
   >

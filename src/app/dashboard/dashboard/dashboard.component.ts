@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {take, takeUntil} from "rxjs/operators";
 import {EventsService} from "../../events/events.service";
 import {PaginatorService} from "../../shared/paginator.service";
+import {ModalService} from "../../shared/modal.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -16,15 +17,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   eventToLeave?: EventType;
   eventToDelete?: EventType;
+  creatingEvent = false;
 
   notifier = new Subject();
 
   @ViewChild('modal') modal!: TemplateRef<unknown>;
 
+  CREATING_EVENT = 'CREATING_EVENT';
+  LEAVING_EVENT = 'LEAVING_EVENT';
+  DELETING_EVENT = 'DELETING_EVENT';
+
   constructor(
     private backend: EventsService,
     private router: Router,
     private paginator: PaginatorService,
+    public modalService: ModalService,
   ) {
   }
 
@@ -54,6 +61,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   handleOnDelete(event: EventType) {
     this.eventToDelete = event;
+    this.modalService.setVisible(this.DELETING_EVENT, true);
   }
 
   onDelete(event?: EventType) {
@@ -72,6 +80,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   handleOnLeave(event: EventType) {
     this.eventToLeave = event;
+    this.modalService.setVisible(this.LEAVING_EVENT, true);
+    console.log(this.eventToLeave);
   }
 
   onLeave(event?: EventType) {

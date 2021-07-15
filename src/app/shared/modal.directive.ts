@@ -6,15 +6,14 @@ import {ModalService} from "./modal.service";
 })
 export class ModalDirective {
 
-  constructor(private ref: TemplateRef<any>, private modal: ModalService) {
+  constructor(
+    private ref: TemplateRef<any>,
+    private modalService: ModalService,
+  ) {
   }
 
   @Input()
-  set appModal(value: any) {
-    if (value) {
-      this.modal.setRef(this.ref);
-    } else {
-      this.modal.clearRef();
-    }
+  set appModal(id: any) {
+    this.modalService.addRef(id, this.ref);
   }
 }

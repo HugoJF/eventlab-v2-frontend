@@ -1,6 +1,6 @@
 <div class="border rounded shadow">
   <!-- Body -->
-  <div class="px-5 py-3 bg-gray-100 rounded-t">
+  <div class="px-5 py-3 bg-white rounded-t">
     <!-- Header -->
     <div class="flex items-center justify-between mb-4">
       <app-title type="header">{{title}}</app-title>
@@ -18,7 +18,7 @@
   </div>
 
   <!-- Actions -->
-  <div class="flex px-5 py-3 justify-end space-x-2 bg-gray-200 rounded-b">
+  <div class="flex px-5 py-3 justify-end space-x-2 bg-gray-100 rounded-b">
     <app-button color="default" size="small" (click)="dismiss()">Cancel</app-button>
     <app-button color="danger" size="small" (click)="onConfirmation.emit()">{{action}}</app-button>
   </div>

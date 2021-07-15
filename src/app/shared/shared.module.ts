@@ -13,11 +13,12 @@ import {IconsModule} from "../icons/icons.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {ModalConfirmComponent} from './modal/modal-confirm.component';
-import {ModalContainerComponent} from './modal-container/modal-container.component';
 import {PortalModule} from "@angular/cdk/portal";
 import {ModalDirective} from './modal.directive';
 import { HeaderComponent } from './header/header.component';
 import {ClassSwitchDirective} from "./class-switch.directive";
+import {ModalHostComponent} from "./modal-host/modal-host.component";
+import { ModalContainerComponent } from './modal-container/modal-container.component';
 
 @NgModule({
   declarations: [
@@ -31,10 +32,11 @@ import {ClassSwitchDirective} from "./class-switch.directive";
     TextareaComponent,
     TitleComponent,
     ModalConfirmComponent,
-    ModalContainerComponent,
+    ModalHostComponent,
     ModalDirective,
     HeaderComponent,
     ClassSwitchDirective,
+    ModalContainerComponent,
   ],
   exports: [
     BadgeComponent,
@@ -46,11 +48,12 @@ import {ClassSwitchDirective} from "./class-switch.directive";
     PaginationComponent,
     TextareaComponent,
     TitleComponent,
-    ModalContainerComponent,
+    ModalHostComponent,
     ModalConfirmComponent,
     ModalDirective,
     HeaderComponent,
     ClassSwitchDirective,
+    ModalContainerComponent,
   ],
   imports: [
     CommonModule,

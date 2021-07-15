@@ -1,8 +1,5 @@
 <div
-  *ngIf="portal"
-  (click)="dismiss($event)"
   class="absolute flex items-center justify-center inset-0 bg-black bg-opacity-50"
-  #container
 >
-  <ng-template [cdkPortalOutlet]="portal"></ng-template>
+  <ng-content></ng-content>
 </div>
