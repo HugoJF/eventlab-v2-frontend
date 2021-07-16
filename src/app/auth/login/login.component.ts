@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthService} from "../../core/auth.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,7 @@ import {AuthService} from "../../core/auth.service";
 })
 export class LoginComponent implements OnInit {
   loading = false;
+  error: number | boolean = false;
 
   email = new FormControl('', [
     Validators.required,
@@ -33,11 +35,24 @@ export class LoginComponent implements OnInit {
   }
 
   handleSubmit() {
-    this.auth.login({
-      username: this.email.value,
-      password: this.password.value,
-    });
-    this.router.navigateByUrl('/dashboard');
+    return this
+      .auth
+      .login({
+        username: this.email.value,
+        password: this.password.value,
+      })
+      .subscribe(
+        success => this.router.navigateByUrl('/dashboard'),
+        error => {
+          if (!(error instanceof HttpErrorResponse)) {
+            this.error = true;
+
+            return;
+          }
+
+          this.error = error.status;
+        },
+      );
   }
 
 }

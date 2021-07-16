@@ -19,6 +19,7 @@ import { HeaderComponent } from './header/header.component';
 import {ClassSwitchDirective} from "./class-switch.directive";
 import {ModalHostComponent} from "./modal-host/modal-host.component";
 import { ModalContainerComponent } from './modal-container/modal-container.component';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -37,24 +38,26 @@ import { ModalContainerComponent } from './modal-container/modal-container.compo
     HeaderComponent,
     ClassSwitchDirective,
     ModalContainerComponent,
+    ErrorComponent,
   ],
-  exports: [
-    BadgeComponent,
-    ButtonComponent,
-    ContainerComponent,
-    FieldComponent,
-    HeadComponent,
-    InputComponent,
-    PaginationComponent,
-    TextareaComponent,
-    TitleComponent,
-    ModalHostComponent,
-    ModalConfirmComponent,
-    ModalDirective,
-    HeaderComponent,
-    ClassSwitchDirective,
-    ModalContainerComponent,
-  ],
+    exports: [
+        BadgeComponent,
+        ButtonComponent,
+        ContainerComponent,
+        FieldComponent,
+        HeadComponent,
+        InputComponent,
+        PaginationComponent,
+        TextareaComponent,
+        TitleComponent,
+        ModalHostComponent,
+        ModalConfirmComponent,
+        ModalDirective,
+        HeaderComponent,
+        ClassSwitchDirective,
+        ModalContainerComponent,
+        ErrorComponent,
+    ],
   imports: [
     CommonModule,
     HttpClientModule,

@@ -32,6 +32,11 @@ export class ModalService {
   popModal() {
     const modals = Object.entries(this.refs);
     const order = modals.sort((a, b) => a[1].opened_at - b[1].opened_at);
+
+    if (order.length === 0) {
+      return;
+    }
+
     this.setVisible(order[order.length - 1][0], false);
   }
 }

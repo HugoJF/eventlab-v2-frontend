@@ -58,13 +58,12 @@ export class AuthService {
   }
 
   login(credentials: LoginCredentials) {
-    this
+    return this
       .fetchToken(credentials)
       .pipe(
         take(1),
         switchMap(() => this.fetchProfile()),
       )
-      .subscribe()
   }
 
   logout() {

@@ -3,9 +3,23 @@
   [formGroup]="formGroup"
   (ngSubmit)="handleSubmit()"
 >
-  <app-title type="super" class="mb-10">
-    EventLab
-  </app-title>
+  <div class="mb-10">
+    <app-title type="super">
+      EventLab
+    </app-title>
+  </div>
+
+  <ng-template [ngIf]="error" [ngSwitch]="error">
+    <app-error *ngSwitchCase="true">
+      Erro, tente novamente!
+    </app-error>
+    <app-error *ngSwitchCase="401">
+      Usuário e senha incorretos, por favor tente novamente!
+    </app-error>
+    <app-error *ngSwitchCase="500">
+      Erro ao validar usuário e senha, por favor tente novamente mais tarde!
+    </app-error>
+  </ng-template>
 
   <div>
     <app-input
