@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {EventProperties, EventType} from "../../core/types/types";
-import {Subject} from "rxjs";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {Router} from "@angular/router";
-import {map, take, takeUntil} from "rxjs/operators";
+import {mergeMap, take, takeUntil, tap} from "rxjs/operators";
 import {EventsService} from "../../events/events.service";
 import {PaginatorService} from "../../shared/paginator.service";
 import {ModalService} from "../../shared/modal.service";
@@ -13,7 +13,9 @@ import {ModalService} from "../../shared/modal.service";
   host: {class: 'contents'}
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  events: EventType[] = [];
+  fetchEvents = new BehaviorSubject<void>(undefined);
+
+  events$!: Observable<EventType[]>;
 
   eventToLeave?: EventType;
   eventToDelete?: EventType;
@@ -36,14 +38,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getEvents();
     this
       .paginator
       .onPagination
-      .pipe(takeUntil(this.notifier))
-      .subscribe(() => {
-        this.getEvents();
-      });
+      .pipe(
+        takeUntil(this.notifier),
+        mergeMap(() => this.events$)
+      )
+      .subscribe();
+
+    this.events$ = this
+      .fetchEvents
+      .pipe(
+        takeUntil(this.notifier),
+        mergeMap(() => this.backend.index())
+      )
   }
 
   ngOnDestroy(): void {
@@ -55,8 +64,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this
       .backend
       .update(event)
-      .pipe(take(1))
-      .subscribe(() => this.getEvents());
+      .subscribe(() => this.fetchEvents.next())
   }
 
   handleOnDelete(event: EventType) {
@@ -65,8 +73,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onDelete(event?: EventType) {
-    this.eventToDelete = undefined;
-
     if (!event) {
       return;
     }
@@ -74,18 +80,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this
       .backend
       .delete(event)
-      .pipe(take(1))
-      .subscribe(() => this.getEvents());
+      .pipe(
+        take(1),
+        tap(() => this.eventToDelete = undefined),
+      )
+      .subscribe(() => this.fetchEvents.next());
   }
 
   handleOnLeave(event: EventType) {
     this.eventToLeave = event;
     this.modalService.setVisible(this.LEAVING_EVENT, true);
-    console.log(this.eventToLeave);
   }
 
   onLeave(event?: EventType) {
-
     if (!event) {
       return;
     }
@@ -95,29 +102,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .leave(event)
       .pipe(
         take(1),
-        map(() => this.modalService.setVisible(this.LEAVING_EVENT, false)),
-        map(() => this.eventToLeave = undefined),
+        tap(() => this.modalService.setVisible(this.LEAVING_EVENT, false)),
+        tap(() => this.eventToLeave = undefined),
       )
-      .subscribe(() => this.getEvents());
+      .subscribe(() => this.fetchEvents.next());
   }
 
   handleOnJoin(event: EventType) {
     this
       .backend
       .join(event)
-      .pipe(take(1))
-      .subscribe(() => this.getEvents());
-  }
-
-  getEvents() {
-    this.backend
-        .index()
-        .subscribe(response => {
-          this.events = response;
-          console.log(Object.values(response));
-          // this.events = response.data;
-          // this.paginator.setLastPage(response.meta.last_page);
-        })
+      .pipe(
+        take(1),
+      )
+      .subscribe(() => this.fetchEvents.next());
   }
 
   handleSubmit($event: EventProperties) {
@@ -125,9 +123,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .backend
       .store($event)
       .pipe(
-        map(() => this.getEvents()),
-        map(() => this.modalService.setVisible(this.CREATING_EVENT, false))
+        take(1),
+        tap(() => this.modalService.setVisible(this.CREATING_EVENT, false)),
       )
-      .subscribe()
+      .subscribe(() => this.fetchEvents.next())
   }
 }

@@ -4,14 +4,14 @@
     <app-button (click)="this.modalService.setVisible(CREATING_EVENT, true)">Criar evento</app-button>
   </div>
 
-  <div *ngIf="events.length === 0" class="w-full flex flex-col items-center space-y-4">
+  <div *ngIf="(events$ | async)?.length === 0" class="w-full flex flex-col items-center space-y-4">
     <app-schedule></app-schedule>
     <h2 class="text-3xl font-black">Nenhum evento aqui!</h2>
     <app-button (click)="this.modalService.setVisible(CREATING_EVENT, true)">Criar evento</app-button>
   </div>
 
   <app-event-list
-    *ngIf="events.length > 0"
+    *ngIf="events$ | async as events"
     [events]="events"
     (onJoin)="handleOnJoin($event)"
     (onLeave)="handleOnLeave($event)"
