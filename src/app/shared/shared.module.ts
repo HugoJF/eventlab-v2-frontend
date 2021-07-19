@@ -20,6 +20,7 @@ import {ClassSwitchDirective} from "./class-switch.directive";
 import {ModalHostComponent} from "./modal-host/modal-host.component";
 import { ModalContainerComponent } from './modal-container/modal-container.component';
 import { ErrorComponent } from './error/error.component';
+import { ScheduleComponent } from './svg/schedule/schedule.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ErrorComponent } from './error/error.component';
     ClassSwitchDirective,
     ModalContainerComponent,
     ErrorComponent,
+    ScheduleComponent,
   ],
     exports: [
         BadgeComponent,
@@ -57,6 +59,7 @@ import { ErrorComponent } from './error/error.component';
         ClassSwitchDirective,
         ModalContainerComponent,
         ErrorComponent,
+        ScheduleComponent,
     ],
   imports: [
     CommonModule,

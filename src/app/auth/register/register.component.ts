@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
 import {BadRequest} from "../../core/types/types";
 import {FormGroupErrors} from "../../classes/form-group-errors";
+import {switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-register',
@@ -60,8 +61,14 @@ export class RegisterComponent implements OnInit {
     this
       .auth
       .register(this.formGroup.value)
+      .pipe(
+        switchMap(() => this.auth.login({
+          username: this.email.value,
+          password: this.password.value,
+        }))
+      )
       .subscribe(
-        success => this.router.navigateByUrl('/login'),
+        success => this.router.navigateByUrl('/dashboard'),
         errors => {
           if (!(errors instanceof HttpErrorResponse)) {
             this.error = true;
