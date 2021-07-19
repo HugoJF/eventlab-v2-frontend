@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {EventType} from "../../core/types/types";
+import {EventProperties, EventType} from "../../core/types/types";
 import {Subject} from "rxjs";
 import {Router} from "@angular/router";
-import {take, takeUntil} from "rxjs/operators";
+import {map, take, takeUntil} from "rxjs/operators";
 import {EventsService} from "../../events/events.service";
 import {PaginatorService} from "../../shared/paginator.service";
 import {ModalService} from "../../shared/modal.service";
@@ -85,7 +85,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onLeave(event?: EventType) {
-    this.eventToLeave = undefined;
 
     if (!event) {
       return;
@@ -94,7 +93,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this
       .backend
       .leave(event)
-      .pipe(take(1))
+      .pipe(
+        take(1),
+        map(() => this.modalService.setVisible(this.LEAVING_EVENT, false)),
+        map(() => this.eventToLeave = undefined),
+      )
       .subscribe(() => this.getEvents());
   }
 
@@ -115,5 +118,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
           // this.events = response.data;
           // this.paginator.setLastPage(response.meta.last_page);
         })
+  }
+
+  handleSubmit($event: EventProperties) {
+    this
+      .backend
+      .store($event)
+      .pipe(
+        map(() => this.getEvents()),
+        map(() => this.modalService.setVisible(this.CREATING_EVENT, false))
+      )
+      .subscribe()
   }
 }

@@ -1,6 +1,17 @@
 <app-container>
-  <app-title (click)="this.creatingEvent = !this.creatingEvent">TokenLab</app-title>
+  <div class="flex items-center justify-between">
+    <app-title (click)="this.creatingEvent = !this.creatingEvent">TokenLab</app-title>
+    <app-button (click)="this.modalService.setVisible(CREATING_EVENT, true)">Criar evento</app-button>
+  </div>
+
+  <div *ngIf="events.length === 0" class="w-full flex flex-col items-center space-y-4">
+    <app-schedule></app-schedule>
+    <h2 class="text-3xl font-black">Nenhum evento aqui!</h2>
+    <app-button (click)="this.modalService.setVisible(CREATING_EVENT, true)">Criar evento</app-button>
+  </div>
+
   <app-event-list
+    *ngIf="events.length > 0"
     [events]="events"
     (onJoin)="handleOnJoin($event)"
     (onLeave)="handleOnLeave($event)"
@@ -9,11 +20,10 @@
   ></app-event-list>
 
   <app-modal-container *appModal="CREATING_EVENT">
-    <div class="p-8 bg-white rounded">
-      <app-event-form>
-
-      </app-event-form>
-    </div>
+    <app-event-form
+      (onSubmit)="handleSubmit($event)"
+      (onCancel)="this.modalService.setVisible(CREATING_EVENT, false)"
+    ></app-event-form>
   </app-modal-container>
 
   <app-modal-confirm

@@ -1,45 +1,49 @@
-<form class="space-y-8 w-full max-w-[32rem]" (submit)="handleSubmit()">
-  <app-title type="super" class="mb-10">
+<form
+  class="space-y-4 w-full max-w-[32rem]"
+  [formGroup]="formGroup"
+  (ngSubmit)="handleSubmit()"
+>
+  <app-title type="header">
     Criando novo evento
   </app-title>
 
-  <div>
+  <section class="space-y-2">
     <app-input
       name="title"
       label="Título do evento"
       type="text"
       [control]="title"
     ></app-input>
-  </div>
 
-  <div>
     <app-textarea
       name="description"
       label="Descrição do evento"
       [control]="description"
     ></app-textarea>
-  </div>
 
-  <div class="grid grid-cols-2 gap-8">
-    <app-input
-      name="starts_at"
-      label="Início do evento"
-      type="datetime-local"
-      [control]="starts_at"
-    ></app-input>
+    <div class="grid grid-cols-2 gap-8">
+      <app-input
+        name="starts_at"
+        label="Início do evento"
+        type="datetime-local"
+        [control]="starts_at"
+      ></app-input>
 
-    <app-input
-      name="ends_at"
-      label="Fim do evento"
-      type="datetime-local"
-      [control]="ends_at"
-    ></app-input>
-  </div>
+      <app-input
+        name="ends_at"
+        label="Fim do evento"
+        type="datetime-local"
+        [control]="ends_at"
+      ></app-input>
+    </div>
+  </section>
 
-  <div class="pt-4">
-    <app-button class="w-full" [loading]="loading">
-      Criar
+  <div class="pt-4 flex space-x-4">
+    <app-button class="w-full flex-grow" [enabled]="formGroup.valid" [loading]="loading">
+      Salvar
+    </app-button>
+    <app-button (click)="onCancel.emit()" color="danger">
+      Cancelar
     </app-button>
   </div>
-
 </form>

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {EventType} from "../core/types/types";
+import {EventProperties, EventType} from "../core/types/types";
 import {BackendService} from "../core/backend.service";
 
 @Injectable({
@@ -11,6 +11,10 @@ export class EventsService {
 
   index() {
     return this.api.get<EventType[]>('/events')
+  }
+
+  store(event: EventProperties) {
+    return this.api.post<EventType>(`/events`, event);
   }
 
   update(event: EventType) {

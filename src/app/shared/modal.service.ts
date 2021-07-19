@@ -4,7 +4,8 @@ import {Subject} from "rxjs";
 type ModalRef = {
   visible: boolean,
   ref: TemplateRef<any>,
-  opened_at: number;
+  opened_at: number,
+  sticky: boolean,
 }
 
 @Injectable({
@@ -18,6 +19,7 @@ export class ModalService {
     this.refs[id] = {
       ref: ref,
       visible: false,
+      sticky: true,
       opened_at: Date.now(),
     };
     this.onNewRef.next();
@@ -37,6 +39,13 @@ export class ModalService {
       return;
     }
 
-    this.setVisible(order[order.length - 1][0], false);
+    const lastId = order[order.length - 1][0];
+    const last = this.refs[lastId];
+
+    if (last.sticky) {
+      return;
+    }
+
+    this.setVisible(lastId, false);
   }
 }

@@ -1,10 +1,4 @@
-<div class="w-full flex flex-col items-center space-y-4">
-  <app-schedule></app-schedule>
-  <h2 class="text-3xl font-black">Nenhum evento aqui!</h2>
-  <app-button>Criar evento</app-button>
-</div>
-
-<div *ngIf="events.length > 0" class="my-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="my-8 grid grid-cols-1 md:grid-cols-2 gap-8">
   <app-event
     *ngFor="let event of events"
     [event]="event"
@@ -15,6 +9,6 @@
   ></app-event>
 </div>
 
-<div *ngIf="events.length > 0" class="flex justify-center">
+<div class="flex justify-center">
   <app-pagination></app-pagination>
 </div>

@@ -7,6 +7,7 @@ import {IconsModule} from "../icons/icons.module";
 import {EventListComponent} from "./event-list/event-list.component";
 import {EventCardComponent} from "./event-card/event-card.component";
 import {EventFormComponent} from "./event-form/event-form.component";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -19,12 +20,13 @@ import {EventFormComponent} from "./event-form/event-form.component";
     EventCardComponent,
     EventFormComponent,
   ],
-  imports: [
-    CommonModule,
-    EventsRoutingModule,
-    SharedModule,
-    IconsModule,
-  ]
+    imports: [
+        CommonModule,
+        EventsRoutingModule,
+        SharedModule,
+        IconsModule,
+        ReactiveFormsModule,
+    ]
 })
 export class EventsModule {
 }
