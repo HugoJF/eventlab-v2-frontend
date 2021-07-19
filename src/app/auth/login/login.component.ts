@@ -15,12 +15,11 @@ export class LoginComponent implements OnInit {
 
   email = new FormControl('', [
     Validators.required,
-    Validators.minLength(8),
+    Validators.email,
   ]);
 
   password = new FormControl('', [
     Validators.required,
-    Validators.minLength(8),
   ]);
 
   formGroup = new FormGroup({
@@ -35,7 +34,11 @@ export class LoginComponent implements OnInit {
   }
 
   handleSubmit() {
-    return this
+    if (this.formGroup.invalid) {
+      return;
+    }
+
+    this
       .auth
       .login({
         username: this.email.value,

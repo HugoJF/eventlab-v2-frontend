@@ -2,26 +2,9 @@ import {Injectable} from '@angular/core';
 import {UserType} from "./types/types";
 import {Router} from "@angular/router";
 import {Subject} from "rxjs";
-import {LoginRequest} from "./types/auth";
+import {LoginCredentials, LoginRequest, RegisterCredentials} from "./types/auth";
 import {switchMap, take, tap} from "rxjs/operators";
 import {BackendService} from "./backend.service";
-
-type LoginCredentials = {
-  username: string;
-  password: string;
-}
-
-// TODO: deprecated
-const USER = {
-  id: 1,
-  name: 'Asd',
-  email: 'asd@asd.com',
-  created_at: '2021-06-15T13:54:44.000000Z',
-  updated_at: '2021-06-15T13:54:44.000000Z',
-  email_verified_at: '2021-06-15T13:54:44.000000Z',
-  two_factor_recovery_codes: null,
-  two_factor_secret: null,
-};
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +47,12 @@ export class AuthService {
         take(1),
         switchMap(() => this.fetchProfile()),
       )
+  }
+
+  register(credentials: RegisterCredentials) {
+    return this
+      .api
+      .post<UserType>('/auth/register', credentials)
   }
 
   logout() {

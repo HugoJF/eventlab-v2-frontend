@@ -36,3 +36,14 @@ export type UserComputedProperties = {
   two_factor_secret: string|null;
   two_factor_recovery_codes: string|null;
 }
+
+export type BadRequest = {
+  error: string;
+  message: ValidationError[],
+  statusCode: number;
+}
+
+export type ValidationError = {
+  property: string;
+  constraints: Record<string, string>
+}

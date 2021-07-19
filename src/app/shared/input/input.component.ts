@@ -12,13 +12,11 @@ export class InputComponent {
 
   @Input() control!: FormControl;
 
-  hasBlurred = false;
-
   constructor() {
   }
 
   canDisplayErrors() {
-    return this.hasBlurred && (this.control.touched || this.control.dirty);
+    return this.control.touched || this.control.dirty;
   }
 
   getErrorMessage() {
@@ -26,25 +24,26 @@ export class InputComponent {
       return;
     }
 
-    if (this.control.errors?.required) {
-      return `Campo ${this.name} é obrigatório'!`;
+    if (this.control.errors.required) {
+      return `Campo ${this.name} é obrigatório!`;
     }
 
-    if (this.control.errors?.minlength) {
+    if (this.control.errors.minlength) {
       return `Campo ${this.name} exige um tamanho mínimo de ${this.control.errors.minlength.requiredLength} caracteres`;
     }
 
-    if (this.control.errors?.mustEqual) {
+    if (this.control.errors.mustEqual) {
       return `Campo ${this.name} precisa ser igual ao campo ${this.control.errors.mustEqual}`;
     }
 
-    if (this.control.errors?.email) {
+    if (this.control.errors.email) {
       return `Campo ${this.name} precisa ser um email válido`;
     }
 
     // FIXME
     console.log(this.control.errors);
+    const errors = Object.values(this.control.errors)[0];
 
-    return 'Invalid field';
+    return `Invalid field: ${errors}`;
   }
 }

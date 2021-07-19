@@ -40,7 +40,7 @@
   </div>
 
   <div class="pt-4">
-    <app-button class="w-full" [loading]="loading">
+    <app-button class="w-full" [enabled]="this.formGroup.valid" [loading]="loading">
       Entrar
     </app-button>
   </div>

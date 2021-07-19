@@ -1,7 +1,17 @@
-<form class="space-y-8 w-full max-w-[32rem]" (submit)="handleSubmit()">
-  <app-title type="super" class="mb-10">
-    EventLab
-  </app-title>
+<form
+  class="space-y-8 w-full max-w-[32rem]"
+  [formGroup]="formGroup"
+  (ngSubmit)="handleSubmit()"
+>
+  <div class="mb-10">
+    <app-title type="super">
+      EventLab
+    </app-title>
+  </div>
+
+  <app-error *ngIf="error">
+    Erro desconhecido ao registrar
+  </app-error>
 
   <div>
     <app-input
@@ -40,7 +50,7 @@
   </div>
 
   <div class="pt-4">
-    <app-button class="w-full" [loading]="loading">
+    <app-button class="w-full" [enabled]="formGroup.valid" [loading]="loading">
       Registrar
     </app-button>
   </div>
