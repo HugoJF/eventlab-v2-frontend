@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   eventToLeave?: EventType;
   eventToDelete?: EventType;
+  eventToEdit?: EventType;
   creatingEvent = false;
 
   notifier = new Subject();
@@ -26,6 +27,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   @ViewChild('modal') modal!: TemplateRef<unknown>;
 
   CREATING_EVENT = 'CREATING_EVENT';
+  EDITING_EVENT = 'EDITING_EVENT';
   LEAVING_EVENT = 'LEAVING_EVENT';
   DELETING_EVENT = 'DELETING_EVENT';
 
@@ -61,10 +63,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   handleOnEdit(event: EventType) {
-    this
-      .backend
-      .update(event)
-      .subscribe(() => this.fetchEvents.next())
+    this.eventToEdit = event;
+    this.modalService.setVisible(this.EDITING_EVENT, true);
   }
 
   handleOnDelete(event: EventType) {
@@ -76,7 +76,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (!event) {
       return;
     }
-
     this
       .backend
       .delete(event)
@@ -118,13 +117,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe(() => this.fetchEvents.next());
   }
 
-  handleSubmit($event: EventProperties) {
+  handleCreateSubmit($event: EventProperties) {
     this
       .backend
       .store($event)
       .pipe(
         take(1),
         tap(() => this.modalService.setVisible(this.CREATING_EVENT, false)),
+      )
+      .subscribe(() => this.fetchEvents.next())
+  }
+
+  handleUpdateSubmit($event: EventProperties) {
+    this
+      .backend
+      .update(this.eventToEdit!.id, $event)
+      .pipe(
+        take(1),
+        tap(() => this.modalService.setVisible(this.EDITING_EVENT, false)),
       )
       .subscribe(() => this.fetchEvents.next())
   }

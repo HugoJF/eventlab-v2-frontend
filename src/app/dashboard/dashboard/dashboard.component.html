@@ -21,8 +21,16 @@
 
   <app-modal-container *appModal="CREATING_EVENT">
     <app-event-form
-      (onSubmit)="handleSubmit($event)"
+      (onSubmit)="handleCreateSubmit($event)"
       (onCancel)="this.modalService.setVisible(CREATING_EVENT, false)"
+    ></app-event-form>
+  </app-modal-container>
+
+  <app-modal-container *appModal="EDITING_EVENT">
+    <app-event-form
+      [event]="eventToEdit"
+      (onSubmit)="handleUpdateSubmit($event)"
+      (onCancel)="this.modalService.setVisible(EDITING_EVENT, false)"
     ></app-event-form>
   </app-modal-container>
 

@@ -17,8 +17,8 @@ export class EventsService {
     return this.api.post<EventType>(`/events`, event);
   }
 
-  update(event: EventType) {
-    return this.api.patch<EventType>(`/events/${event.id}`, event);
+  update(id: number, event: EventProperties) {
+    return this.api.patch<EventType>(`/events/${id}`, event);
   }
 
   delete(event: EventType) {
