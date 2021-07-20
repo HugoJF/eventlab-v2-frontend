@@ -64,12 +64,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   handleOnEdit(event: EventType) {
     this.eventToEdit = event;
-    this.modalService.setVisible(this.EDITING_EVENT, true);
+    this.modalService.open(this.EDITING_EVENT);
   }
 
   handleOnDelete(event: EventType) {
     this.eventToDelete = event;
-    this.modalService.setVisible(this.DELETING_EVENT, true);
+    this.modalService.open(this.DELETING_EVENT);
   }
 
   onDelete(event?: EventType) {
@@ -82,13 +82,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .pipe(
         take(1),
         tap(() => this.eventToDelete = undefined),
+        tap(() => this.modalService.close(this.DELETING_EVENT)),
       )
       .subscribe(() => this.fetchEvents.next());
   }
 
   handleOnLeave(event: EventType) {
     this.eventToLeave = event;
-    this.modalService.setVisible(this.LEAVING_EVENT, true);
+    this.modalService.open(this.LEAVING_EVENT);
   }
 
   onLeave(event?: EventType) {
@@ -101,7 +102,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .leave(event)
       .pipe(
         take(1),
-        tap(() => this.modalService.setVisible(this.LEAVING_EVENT, false)),
+        tap(() => this.modalService.close(this.LEAVING_EVENT)),
         tap(() => this.eventToLeave = undefined),
       )
       .subscribe(() => this.fetchEvents.next());
@@ -123,7 +124,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .store($event)
       .pipe(
         take(1),
-        tap(() => this.modalService.setVisible(this.CREATING_EVENT, false)),
+        tap(() => this.modalService.close(this.CREATING_EVENT)),
       )
       .subscribe(() => this.fetchEvents.next())
   }
@@ -134,7 +135,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .update(this.eventToEdit!.id, $event)
       .pipe(
         take(1),
-        tap(() => this.modalService.setVisible(this.EDITING_EVENT, false)),
+        tap(() => this.modalService.close(this.EDITING_EVENT)),
       )
       .subscribe(() => this.fetchEvents.next())
   }

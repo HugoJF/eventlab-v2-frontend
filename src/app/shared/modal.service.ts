@@ -13,16 +13,24 @@ type ModalRef = {
 })
 export class ModalService {
   refs: Record<string, ModalRef> = {};
+  // TODO: is this needed
   readonly onNewRef = new Subject<void>();
 
-  addRef(id: string, ref: TemplateRef<any>) {
+  addRef(id: string, ref: TemplateRef<any>, sticky: boolean = false) {
     this.refs[id] = {
       ref: ref,
       visible: false,
-      sticky: true,
+      sticky: sticky,
       opened_at: Date.now(),
     };
-    this.onNewRef.next();
+  }
+
+  close(id: string) {
+    this.setVisible(id, false);
+  }
+
+  open(id: string) {
+    this.setVisible(id, true);
   }
 
   setVisible(id: string, open: boolean) {
@@ -31,21 +39,25 @@ export class ModalService {
     this.onNewRef.next();
   }
 
-  popModal() {
-    const modals = Object.entries(this.refs);
-    const order = modals.sort((a, b) => a[1].opened_at - b[1].opened_at);
+  setSticky(id: string, sticky: boolean) {
+    this.refs[id].sticky = sticky;
+  }
 
-    if (order.length === 0) {
+  closeLastModal() {
+    const modals = Object.entries(this.refs);
+
+    if (modals.length === 0) {
       return;
     }
 
-    const lastId = order[order.length - 1][0];
-    const last = this.refs[lastId];
+    const orderEntries = modals.sort((a, b) => a[1].opened_at - b[1].opened_at);
+    const lastEntry = orderEntries[orderEntries.length - 1];
+    const [lastId, last] = lastEntry;
 
     if (last.sticky) {
       return;
     }
 
-    this.setVisible(lastId, false);
+    this.close(lastId);
   }
 }

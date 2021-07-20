@@ -42,7 +42,7 @@ export class ModalHostComponent implements OnInit {
   dismiss($event: MouseEvent) {
     // if user clicked directly the background
     if ($event.target === this.container?.nativeElement) {
-      this.modal.popModal();
+      this.modal.closeLastModal();
     }
   }
 }

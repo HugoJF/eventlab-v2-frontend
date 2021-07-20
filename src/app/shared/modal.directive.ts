@@ -5,6 +5,8 @@ import {ModalService} from "./modal.service";
   selector: '[appModal]'
 })
 export class ModalDirective {
+  private _id?: string;
+  private _sticky?: boolean;
 
   constructor(
     private ref: TemplateRef<any>,
@@ -13,7 +15,19 @@ export class ModalDirective {
   }
 
   @Input()
-  set appModal(id: any) {
-    this.modalService.addRef(id, this.ref);
+  set appModalSticky(sticky: boolean) {
+    this._sticky = sticky;
+
+    if (!this._id) {
+      return;
+    }
+
+    this.modalService.setSticky(this._id, sticky);
+  }
+
+  @Input()
+  set appModal(id: string) {
+    this._id = id;
+    this.modalService.addRef(id, this.ref, this._sticky);
   }
 }

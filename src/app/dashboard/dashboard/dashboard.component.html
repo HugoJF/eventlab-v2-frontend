@@ -1,13 +1,13 @@
 <app-container>
   <div class="flex items-center justify-between">
     <app-title (click)="this.creatingEvent = !this.creatingEvent">TokenLab</app-title>
-    <app-button (click)="this.modalService.setVisible(CREATING_EVENT, true)">Criar evento</app-button>
+    <app-button (click)="this.modalService.open(CREATING_EVENT)">Criar evento</app-button>
   </div>
 
   <div *ngIf="(events$ | async)?.length === 0" class="w-full flex flex-col items-center space-y-4">
     <app-schedule></app-schedule>
     <h2 class="text-3xl font-black">Nenhum evento aqui!</h2>
-    <app-button (click)="this.modalService.setVisible(CREATING_EVENT, true)">Criar evento</app-button>
+    <app-button (click)="this.modalService.open(CREATING_EVENT)">Criar evento</app-button>
   </div>
 
   <app-event-list
@@ -19,10 +19,10 @@
     (onDelete)="handleOnDelete($event)"
   ></app-event-list>
 
-  <app-modal-container *appModal="CREATING_EVENT">
+  <app-modal-container *appModal="CREATING_EVENT;sticky:true">
     <app-event-form
       (onSubmit)="handleCreateSubmit($event)"
-      (onCancel)="this.modalService.setVisible(CREATING_EVENT, false)"
+      (onCancel)="this.modalService.close(CREATING_EVENT)"
     ></app-event-form>
   </app-modal-container>
 
@@ -30,14 +30,14 @@
     <app-event-form
       [event]="eventToEdit"
       (onSubmit)="handleUpdateSubmit($event)"
-      (onCancel)="this.modalService.setVisible(EDITING_EVENT, false)"
+      (onCancel)="this.modalService.close(EDITING_EVENT)"
     ></app-event-form>
   </app-modal-container>
 
   <app-modal-confirm
     *appModal="LEAVING_EVENT"
     (onConfirmation)="this.onLeave(this.eventToLeave)"
-    (onDismiss)="this.modalService.setVisible(LEAVING_EVENT, false)"
+    (onDismiss)="this.modalService.close(LEAVING_EVENT)"
     action="Leave"
     title="Leaving event"
   >

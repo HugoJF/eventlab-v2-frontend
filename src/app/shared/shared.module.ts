@@ -15,12 +15,12 @@ import {HttpClientModule} from "@angular/common/http";
 import {ModalConfirmComponent} from './modal/modal-confirm.component';
 import {PortalModule} from "@angular/cdk/portal";
 import {ModalDirective} from './modal.directive';
-import { HeaderComponent } from './header/header.component';
+import {HeaderComponent} from './header/header.component';
 import {ClassSwitchDirective} from "./class-switch.directive";
 import {ModalHostComponent} from "./modal-host/modal-host.component";
-import { ModalContainerComponent } from './modal-container/modal-container.component';
-import { ErrorComponent } from './error/error.component';
-import { ScheduleComponent } from './svg/schedule/schedule.component';
+import {ModalContainerComponent} from './modal-container/modal-container.component';
+import {ErrorComponent} from './error/error.component';
+import {ScheduleComponent} from './svg/schedule/schedule.component';
 
 @NgModule({
   declarations: [
@@ -42,25 +42,25 @@ import { ScheduleComponent } from './svg/schedule/schedule.component';
     ErrorComponent,
     ScheduleComponent,
   ],
-    exports: [
-        BadgeComponent,
-        ButtonComponent,
-        ContainerComponent,
-        FieldComponent,
-        HeadComponent,
-        InputComponent,
-        PaginationComponent,
-        TextareaComponent,
-        TitleComponent,
-        ModalHostComponent,
-        ModalConfirmComponent,
-        ModalDirective,
-        HeaderComponent,
-        ClassSwitchDirective,
-        ModalContainerComponent,
-        ErrorComponent,
-        ScheduleComponent,
-    ],
+  exports: [
+    BadgeComponent,
+    ButtonComponent,
+    ContainerComponent,
+    FieldComponent,
+    HeadComponent,
+    InputComponent,
+    PaginationComponent,
+    TextareaComponent,
+    TitleComponent,
+    ModalHostComponent,
+    ModalConfirmComponent,
+    ModalDirective,
+    HeaderComponent,
+    ClassSwitchDirective,
+    ModalContainerComponent,
+    ErrorComponent,
+    ScheduleComponent,
+  ],
   imports: [
     CommonModule,
     HttpClientModule,
