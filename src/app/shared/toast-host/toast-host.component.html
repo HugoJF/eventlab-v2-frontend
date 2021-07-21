@@ -1,0 +1,8 @@
+<div class="absolute flex flex-col items-center space-y-8 inset-x-0 top-0 mt-16">
+  <app-toast
+    *ngFor="let toast of toastService.toasts"
+    [color]="toast.color!"
+    [title]="toast.title"
+    [description]="toast.description"
+  ></app-toast>
+</div>

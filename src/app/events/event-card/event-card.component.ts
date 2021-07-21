@@ -54,4 +54,19 @@ export class EventCardComponent implements OnInit, OnChanges {
     this.startsAt = new Date(this.event.starts_at);
     this.endsAt = new Date(this.event.ends_at);
   }
+
+  diffInDays() {
+    const prefixes = ['ms', 'segundos', 'minutos', 'horas', 'dias'];
+    const mults = [1, 1000, 60, 60, 24];
+    const startsAt = Date.parse(this.startsAt.toUTCString());
+    const endsAt = Date.parse(this.endsAt.toUTCString());
+    let delta = endsAt - startsAt;
+    let i = 0;
+
+    while (i < prefixes.length - 1 && delta > mults[i]) {
+      delta /= mults[++i];
+    }
+
+    return [Math.round(delta), prefixes[i]].join(' ')
+  }
 }

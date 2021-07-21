@@ -6,6 +6,7 @@ import {mergeMap, take, takeUntil, tap} from "rxjs/operators";
 import {EventsService} from "../../events/events.service";
 import {PaginatorService} from "../../shared/paginator.service";
 import {ModalService} from "../../shared/modal.service";
+import {ToastService} from "../../shared/toast.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -35,6 +36,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private backend: EventsService,
     private router: Router,
     private paginator: PaginatorService,
+    private toastService: ToastService,
     public modalService: ModalService,
   ) {
   }
@@ -103,6 +105,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .pipe(
         take(1),
         tap(() => this.modalService.close(this.LEAVING_EVENT)),
+        tap(() => this.toastService.add({
+          title: 'Participação cancelada com sucesso!',
+          description: `Sua participação no evento ${this.eventToLeave?.title} foi cancelada.`,
+          color: 'green',
+        }, 5000)),
         tap(() => this.eventToLeave = undefined),
       )
       .subscribe(() => this.fetchEvents.next());
@@ -114,6 +121,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .join(event)
       .pipe(
         take(1),
+        tap(() => this.toastService.add({
+          title: 'Participação confirmada com sucesso!',
+          description: `Sua participação no evento ${this.eventToLeave?.title} foi confirmada.`,
+          color: 'green',
+        }, 5000)),
       )
       .subscribe(() => this.fetchEvents.next());
   }

@@ -21,6 +21,8 @@ import {ModalHostComponent} from "./modal-host/modal-host.component";
 import {ModalContainerComponent} from './modal-container/modal-container.component';
 import {ErrorComponent} from './error/error.component';
 import {ScheduleComponent} from './svg/schedule/schedule.component';
+import { ToastComponent } from './toast/toast.component';
+import { ToastHostComponent } from './toast-host/toast-host.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import {ScheduleComponent} from './svg/schedule/schedule.component';
     ModalContainerComponent,
     ErrorComponent,
     ScheduleComponent,
+    ToastComponent,
+    ToastHostComponent,
   ],
   exports: [
     BadgeComponent,
@@ -60,6 +64,8 @@ import {ScheduleComponent} from './svg/schedule/schedule.component';
     ModalContainerComponent,
     ErrorComponent,
     ScheduleComponent,
+    ToastComponent,
+    ToastHostComponent,
   ],
   imports: [
     CommonModule,
