@@ -5,9 +5,10 @@
   </div>
 
   <div *ngIf="events$ | async | empty" class="w-full flex flex-col items-center space-y-4">
-    <app-schedule></app-schedule>
+    <div class="flex justify-center w-64">
+      <app-schedule></app-schedule>
+    </div>
     <h2 class="text-3xl font-black">Nenhum evento aqui!</h2>
-    <app-button (click)="this.modalService.open(CREATING_EVENT)">Criar evento</app-button>
   </div>
 
   <app-event-list

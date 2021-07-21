@@ -9,6 +9,6 @@
   ></app-event>
 </div>
 
-<div class="flex justify-center">
+<div *ngIf="events.length > 0" class="flex justify-center">
   <app-pagination></app-pagination>
 </div>
