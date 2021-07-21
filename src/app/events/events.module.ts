@@ -20,13 +20,13 @@ import {ReactiveFormsModule} from "@angular/forms";
     EventCardComponent,
     EventFormComponent,
   ],
-    imports: [
-        CommonModule,
-        EventsRoutingModule,
-        SharedModule,
-        IconsModule,
-        ReactiveFormsModule,
-    ]
+  imports: [
+    CommonModule,
+    EventsRoutingModule,
+    SharedModule,
+    IconsModule,
+    ReactiveFormsModule,
+  ]
 })
 export class EventsModule {
 }
