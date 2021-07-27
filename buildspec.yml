@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - npm run ci
+      - npm run build
+  post_build:
+    commands:
+      - echo Missing AWS S3 sync
+
+artifacts:
+  type: zip
+  base-directory: dist/tokenlab-v2
+  files:
+    - '*'
