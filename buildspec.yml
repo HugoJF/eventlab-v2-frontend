@@ -1,5 +1,8 @@
 version: 0.2
-
+# [Container] 2021/07/27 18:58:34 Found possible syntax errors in buildspec:
+  #In the section artifacts
+#    The following keys cannot be identified:
+#        type
 phases:
   build:
     commands:
@@ -7,11 +10,4 @@ phases:
       - npm run build
   post_build:
     commands:
-      - echo Missing AWS S3 sync
-
-artifacts:
-  name: build
-  type: zip
-  base-directory: dist/tokenlab-v2
-  files:
-    - '*'
+      - aws s3 sync dist/tokenlan-v2 s3://${DEPLOY_BUCKET} --delete
