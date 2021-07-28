@@ -10,4 +10,4 @@ phases:
       - npm run build
   post_build:
     commands:
-      - aws s3 sync dist/tokenlan-v2 s3://${DEPLOY_BUCKET} --delete
+      - aws s3 sync dist/tokenlab-v2 s3://${DEPLOY_BUCKET} --delete
