@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 type Options = Parameters<HttpClient['get']>[1];
 const TOKEN_KEY = 'token';
@@ -40,7 +41,7 @@ export class BackendService {
   }
 
   url(path: string) {
-    return `http://localhost:3000${path}`;
+    return `${environment.endpoint}${path}`;
   }
 
   get<T>(path: string, extra: Options = {}) {

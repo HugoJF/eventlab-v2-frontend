@@ -1,9 +1,9 @@
 version: 0.2
-# [Container] 2021/07/27 18:58:34 Found possible syntax errors in buildspec:
-  #In the section artifacts
-#    The following keys cannot be identified:
-#        type
+
 phases:
+  pre_build:
+    commands:
+      - sed "s/ENDPOINT/$ENDPOINT/g" -i src/environments/environment.prod.ts
   build:
     commands:
       - npm ci
