@@ -3,7 +3,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - sed "s/ENDPOINT/$ENDPOINT/g" -i src/environments/environment.prod.ts
+      - sed "s|ENDPOINT|$ENDPOINT|g" -i src/environments/environment.prod.ts
   build:
     commands:
       - npm ci
