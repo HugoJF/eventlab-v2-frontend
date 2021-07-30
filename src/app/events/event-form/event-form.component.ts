@@ -8,6 +8,7 @@ import {EventProperties, EventType} from "../../core/types/types";
   host: {class: 'contents'}
 })
 export class EventFormComponent implements OnInit {
+  @Input() header!: string;
   @Output() onCancel = new EventEmitter<void>();
   @Output() onSubmit = new EventEmitter<EventProperties>();
 

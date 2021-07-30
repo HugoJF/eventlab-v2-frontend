@@ -1,6 +1,6 @@
 <app-container>
   <div class="flex items-center justify-between">
-    <app-title (click)="this.creatingEvent = !this.creatingEvent">TokenLab</app-title>
+    <app-title (click)="this.creatingEvent = !this.creatingEvent">Eventlab v2</app-title>
     <app-button (click)="this.modalService.open(CREATING_EVENT)">Criar evento</app-button>
   </div>
 
@@ -22,6 +22,7 @@
 
   <app-modal-container *appModal="CREATING_EVENT;sticky:true">
     <app-event-form
+      header="Criando novo evento"
       (onSubmit)="handleCreateSubmit($event)"
       (onCancel)="this.modalService.close(CREATING_EVENT)"
     ></app-event-form>
@@ -29,6 +30,7 @@
 
   <app-modal-container *appModal="EDITING_EVENT">
     <app-event-form
+      header="Editando evento"
       [event]="eventToEdit"
       (onSubmit)="handleUpdateSubmit($event)"
       (onCancel)="this.modalService.close(EDITING_EVENT)"
