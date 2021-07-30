@@ -6,7 +6,7 @@ phases:
       - sed "s|ENDPOINT|$ENDPOINT|g" -i src/environments/environment.prod.ts
   build:
     commands:
-      - npm ci
+      - npm install
       - npm run build
   post_build:
     commands:
