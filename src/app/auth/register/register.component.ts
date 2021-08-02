@@ -36,6 +36,7 @@ export class RegisterComponent implements OnInit {
       return {mustEqual: 'password'}
     }
   ]);
+
   formGroup = new FormGroup({
     name: this.name,
     email: this.email,
@@ -58,6 +59,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
     this
       .auth
       .register(this.formGroup.value)
@@ -76,6 +78,7 @@ export class RegisterComponent implements OnInit {
             return;
           }
 
+          this.loading = false;
           this.formGroupErrors.handleBadRequest(errors.error as BadRequest);
         },
       )

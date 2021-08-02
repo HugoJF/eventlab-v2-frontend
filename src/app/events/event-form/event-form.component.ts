@@ -9,10 +9,9 @@ import {EventProperties, EventType} from "../../core/types/types";
 })
 export class EventFormComponent implements OnInit {
   @Input() header!: string;
+  @Input() loading = false;
   @Output() onCancel = new EventEmitter<void>();
   @Output() onSubmit = new EventEmitter<EventProperties>();
-
-  loading = false;
 
   private _event: EventType | undefined;
   @Input() set event(event: EventType | undefined) {

@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthService} from "../../core/auth.service";
 import {HttpErrorResponse} from "@angular/common/http";
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-login',
@@ -38,6 +39,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+    this.loading = true
     this
       .auth
       .login({
@@ -53,6 +55,7 @@ export class LoginComponent implements OnInit {
             return;
           }
 
+          this.loading = true;
           this.error = error.status;
         },
       );

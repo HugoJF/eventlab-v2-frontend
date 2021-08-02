@@ -13,7 +13,7 @@ import {ToastService} from "../../shared/toast.service";
   templateUrl: './dashboard.component.html',
   host: {class: 'contents'}
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit {
   fetchEvents = new BehaviorSubject<void>(undefined);
 
   events$!: Observable<EventType[]>;
@@ -23,12 +23,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   eventToEdit?: EventType;
   creatingEvent = false;
 
-  notifier = new Subject();
-
   CREATING_EVENT = 'CREATING_EVENT';
   EDITING_EVENT = 'EDITING_EVENT';
   LEAVING_EVENT = 'LEAVING_EVENT';
   DELETING_EVENT = 'DELETING_EVENT';
+
+  storingEvent = false;
+  updatingEvent = false;
 
   constructor(
     private backend: EventsService,
@@ -44,7 +45,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .paginator
       .onPagination
       .pipe(
-        takeUntil(this.notifier),
         mergeMap(() => this.events$)
       )
       .subscribe();
@@ -52,14 +52,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.events$ = this
       .fetchEvents
       .pipe(
-        takeUntil(this.notifier),
         mergeMap(() => this.backend.index())
       )
-  }
-
-  ngOnDestroy(): void {
-    this.notifier.next();
-    this.notifier.complete();
   }
 
   handleOnEdit(event: EventType) {
@@ -129,6 +123,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   handleCreateSubmit($event: EventProperties) {
+    this.storingEvent = true;
     this
       .backend
       .store($event)
@@ -136,10 +131,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
         take(1),
         tap(() => this.modalService.close(this.CREATING_EVENT)),
       )
-      .subscribe(() => this.fetchEvents.next())
+      .subscribe(() => {
+        this.fetchEvents.next();
+        this.storingEvent = false;
+      })
   }
 
   handleUpdateSubmit($event: EventProperties) {
+    this.updatingEvent = true;
     this
       .backend
       .update(this.eventToEdit!.id, $event)
@@ -147,6 +146,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
         take(1),
         tap(() => this.modalService.close(this.EDITING_EVENT)),
       )
-      .subscribe(() => this.fetchEvents.next())
+      .subscribe(() => {
+        this.fetchEvents.next();
+        this.updatingEvent = false;
+      })
   }
 }

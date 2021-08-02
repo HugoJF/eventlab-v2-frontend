@@ -27,15 +27,17 @@
       header="Criando novo evento"
       (onSubmit)="handleCreateSubmit($event)"
       (onCancel)="this.modalService.close(CREATING_EVENT)"
+      [loading]="storingEvent"
     ></app-event-form>
   </app-modal-container>
 
-  <app-modal-container *appModal="EDITING_EVENT">
+  <app-modal-container *appModal="EDITING_EVENT;sticky:true">
     <app-event-form
       header="Editando evento"
       [event]="eventToEdit"
       (onSubmit)="handleUpdateSubmit($event)"
       (onCancel)="this.modalService.close(EDITING_EVENT)"
+      [loading]="updatingEvent"
     ></app-event-form>
   </app-modal-container>
 
