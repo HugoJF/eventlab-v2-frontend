@@ -4,21 +4,23 @@
     <app-button (click)="this.modalService.open(CREATING_EVENT)">Criar evento</app-button>
   </div>
 
-  <div *ngIf="events$ | async | empty" class="w-full flex flex-col items-center space-y-4">
-    <div class="flex justify-center w-64">
-      <app-schedule></app-schedule>
+  <ng-container *ngIf="events$ | async as events">
+    <div *ngIf="events | empty" class="w-full flex flex-col items-center space-y-4">
+      <div class="flex justify-center w-64">
+        <app-schedule></app-schedule>
+      </div>
+      <h2 class="text-3xl font-black">Nenhum evento aqui!</h2>
     </div>
-    <h2 class="text-3xl font-black">Nenhum evento aqui!</h2>
-  </div>
 
-  <app-event-list
-    *ngIf="events$ | async as events"
-    [events]="events"
-    (onJoin)="handleOnJoin($event)"
-    (onLeave)="handleOnLeave($event)"
-    (onEdit)="handleOnEdit($event)"
-    (onDelete)="handleOnDelete($event)"
-  ></app-event-list>
+    <app-event-list
+      *ngIf="events"
+      [events]="events"
+      (onJoin)="handleOnJoin($event)"
+      (onLeave)="handleOnLeave($event)"
+      (onEdit)="handleOnEdit($event)"
+      (onDelete)="handleOnDelete($event)"
+    ></app-event-list>
+  </ng-container>
 
   <app-modal-container *appModal="CREATING_EVENT;sticky:true">
     <app-event-form

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  endpoint: 'http://eventlabcf-lb-678883313.us-east-2.elb.amazonaws.com',
+  endpoint: 'http://localhost:3000',
 };
 
 /*

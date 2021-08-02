@@ -25,8 +25,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   notifier = new Subject();
 
-  @ViewChild('modal') modal!: TemplateRef<unknown>;
-
   CREATING_EVENT = 'CREATING_EVENT';
   EDITING_EVENT = 'EDITING_EVENT';
   LEAVING_EVENT = 'LEAVING_EVENT';
