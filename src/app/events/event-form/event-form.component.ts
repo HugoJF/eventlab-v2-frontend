@@ -21,12 +21,10 @@ export class EventFormComponent implements OnInit {
     }
     const {title, description, starts_at, ends_at} = event;
     // https://stackoverflow.com/questions/49830032/how-to-assign-value-to-datetime-local-in-a-reactive-form
-    this.formGroup.setValue({
-      title,
-      description,
-      starts_at: new Date(starts_at).toISOString().substring(0, 16),
-      ends_at: new Date(ends_at).toISOString().substring(0, 16),
-    });
+    this.title.setValue(title);
+    this.description.setValue(description);
+    this.starts_at.setValue(new Date(starts_at).toISOString().substring(0, 16));
+    this.ends_at.setValue(new Date(ends_at).toISOString().substring(0, 16));
   }
 
   get event(): EventType | undefined {
@@ -49,7 +47,15 @@ export class EventFormComponent implements OnInit {
     Validators.required,
   ]);
 
-  formGroup = new FormGroup({
+  @Input() set formGroup(fg: FormGroup) {
+    this._formGroup = fg;
+    fg.setControl('title', this.title);
+    fg.setControl('description', this.description);
+    fg.setControl('starts_at', this.starts_at);
+    fg.setControl('ends_at', this.ends_at);
+  }
+
+  _formGroup = new FormGroup({
     title: this.title,
     description: this.description,
     starts_at: this.starts_at,
@@ -63,10 +69,15 @@ export class EventFormComponent implements OnInit {
   }
 
   handleSubmit() {
-    if (this.formGroup.invalid) {
+    if (this._formGroup.invalid) {
       return;
     }
 
-    this.onSubmit.emit(this.formGroup.value);
+    this.onSubmit.emit({
+      title: this.title.value,
+      description: this.description.value,
+      starts_at: new Date(this.starts_at.value).toISOString(),
+      ends_at: new Date(this.ends_at.value).toISOString(),
+    });
   }
 }

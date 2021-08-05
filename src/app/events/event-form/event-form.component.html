@@ -1,6 +1,6 @@
 <form
   class="space-y-4 w-full max-w-[32rem]"
-  [formGroup]="formGroup"
+  [formGroup]="_formGroup"
   (ngSubmit)="handleSubmit()"
 >
   <app-title type="header">
@@ -39,11 +39,11 @@
   </section>
 
   <div class="pt-4 flex space-x-4">
-    <app-button class="w-full flex-grow" [enabled]="formGroup.valid" [loading]="loading">
-      Salvar
-    </app-button>
     <app-button (click)="onCancel.emit()" color="danger">
       Cancelar
+    </app-button>
+    <app-button class="w-full flex-grow" [enabled]="_formGroup.valid" [loading]="loading">
+      Salvar
     </app-button>
   </div>
 </form>

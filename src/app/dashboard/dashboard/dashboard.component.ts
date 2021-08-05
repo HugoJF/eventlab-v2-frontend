@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {EventProperties, EventType} from "../../core/types/types";
+import {BadRequest, EventProperties, EventType} from "../../core/types/types";
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {Router} from "@angular/router";
 import {mergeMap, take, takeUntil, tap} from "rxjs/operators";
@@ -7,6 +7,9 @@ import {EventsService} from "../../events/events.service";
 import {PaginatorService} from "../../shared/paginator.service";
 import {ModalService} from "../../shared/modal.service";
 import {ToastService} from "../../shared/toast.service";
+import {HttpErrorResponse} from "@angular/common/http";
+import {FormGroup} from "@angular/forms";
+import {FormErrorHelperService} from "../../core/form-error-helper.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -31,11 +34,14 @@ export class DashboardComponent implements OnInit {
   storingEvent = false;
   updatingEvent = false;
 
+  eventFormGroup = new FormGroup({});
+
   constructor(
     private backend: EventsService,
     private router: Router,
     private paginator: PaginatorService,
     private toastService: ToastService,
+    private formError: FormErrorHelperService,
     public modalService: ModalService,
   ) {
   }
@@ -131,10 +137,11 @@ export class DashboardComponent implements OnInit {
         take(1),
         tap(() => this.modalService.close(this.CREATING_EVENT)),
       )
-      .subscribe(() => {
-        this.fetchEvents.next();
-        this.storingEvent = false;
-      })
+      .subscribe(
+        () => this.fetchEvents.next(),
+        e => this.formError.handleError(this.eventFormGroup, e)
+      )
+    this.storingEvent = false;
   }
 
   handleUpdateSubmit($event: EventProperties) {
@@ -146,9 +153,10 @@ export class DashboardComponent implements OnInit {
         take(1),
         tap(() => this.modalService.close(this.EDITING_EVENT)),
       )
-      .subscribe(() => {
-        this.fetchEvents.next();
-        this.updatingEvent = false;
-      })
+      .subscribe(
+        () => this.fetchEvents.next(),
+        e => this.formError.handleError(this.eventFormGroup, e)
+      )
+    this.updatingEvent = false;
   }
 }

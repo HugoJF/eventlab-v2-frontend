@@ -25,6 +25,7 @@
   <app-modal-container *appModal="CREATING_EVENT;sticky:true">
     <app-event-form
       header="Criando novo evento"
+      [formGroup]="this.eventFormGroup"
       (onSubmit)="handleCreateSubmit($event)"
       (onCancel)="this.modalService.close(CREATING_EVENT)"
       [loading]="storingEvent"
@@ -34,6 +35,7 @@
   <app-modal-container *appModal="EDITING_EVENT;sticky:true">
     <app-event-form
       header="Editando evento"
+      [formGroup]="this.eventFormGroup"
       [event]="eventToEdit"
       (onSubmit)="handleUpdateSubmit($event)"
       (onCancel)="this.modalService.close(EDITING_EVENT)"

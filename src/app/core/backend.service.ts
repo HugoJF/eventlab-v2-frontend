@@ -1,9 +1,21 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpContext, HttpHeaders, HttpParams} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 
-type Options = Parameters<HttpClient['get']>[1];
 const TOKEN_KEY = 'token';
+type Options = {
+  headers?: HttpHeaders | {
+    [header: string]: string | string[];
+  };
+  context?: HttpContext;
+  observe?: 'body';
+  params?: HttpParams | {
+    [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
+  };
+  reportProgress?: boolean;
+  responseType?: 'json';
+  withCredentials?: boolean;
+};
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +27,11 @@ export class BackendService {
     this.restoreToken();
   }
 
-  private options(extra: Options) {
+  private options(extra: Options): Options {
     return {
       ...extra,
       headers: {
-        ...(extra?.headers ?? {}),
+        ...extra.headers,
         Accept: 'application/json',
         Authorization: `Bearer ${this.token}`,
       }
